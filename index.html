@@ -197,6 +197,8 @@ function showNextChords(){
 G:7 G:7 G:7 G:7
 E:min7 E:min7 N E:min7
 A:min</textarea><button onclick='playChords(document.getElementById("chordarea").value)' value="play">play</button>
+<h2>nextChord</h2>
+<textarea id="nextChord" style="margin: 0px; height: 85px; width: 270px;"></textarea>
 <h2>key</h2>
 <select name="base" size="5" onchange="base=parseInt(this.value);console.log(base);">
 <option value="36">36</option>
@@ -207,6 +209,4 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 </select>
 <h2>tempo</h2>
 <input type="text" onchange="tempo=60/parseInt(this.value);console.log(tempo);" value="120">
-<h2>nextChord</h2>
-<textarea id="nextChord" style="margin: 0px; height: 85px; width: 169px;"></textarea>
 </body></html>
