@@ -20,6 +20,7 @@
 <script>
  
 var base = 60;
+var tempo = 60/120;
  
 var key =  ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
  
@@ -142,9 +143,9 @@ function playMIDI(midi){
             for(i=0;i<midi.length;i++){
                 for(j=0;j<midi[i].length;j++){
                     MIDI.noteOn(0, midi[i][j], velocity, delay);
-                    MIDI.noteOff(0, midi[i][j], delay + 0.75);                
+                    MIDI.noteOff(0, midi[i][j], delay + tempo);                
                 }
-                delay = delay +1;
+                delay = delay +tempo;
             }
         }
     });
@@ -175,4 +176,6 @@ function playChords(chords){
 <option value="72">72</option>
 <option value="84">84</option>
 </select>
+<h2>tempo</h2>
+<input type="text" onchange="tempo=parseInt(this.value);console.log(tempo);" value="120">
 </body></html>
