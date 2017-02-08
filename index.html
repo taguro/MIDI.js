@@ -15,6 +15,7 @@
     <!-- utils -->
     <script src="./js/util/dom_request_xhr.js" type="text/javascript"></script>
     <script src="./js/util/dom_request_script.js" type="text/javascript"></script>
+    <!-- nextChords -->
     <script src="./probabilities.js"></script>
 </head>
 <body>
@@ -165,11 +166,34 @@ function playChords(chords){
     }
     playMIDI(_midi);
 }
+
+function showNextChords(){
+
+  lastChord = document.getElementById("chordarea").value.split(/\r\n|\r|\n| |,/).pop();
+  probs = probabilities[lastChord];
+
+  var keyValues = [];
+
+  for (var key in probs) {
+    keyValues.push([ key, probs[key] ]);
+  }
+
+  sortedProbs=keyValues.sort(function compare(kv1, kv2) {
+    return kv2[1] - kv1[1];
+  });
+
+  CR = String.fromCharCode(13);
+  document.getElementById("nextChord").value="";
+  for(var k in sortedProbs){
+    document.getElementById("nextChord").value=document.getElementById("nextChord").value+sortedProbs[k][0]+" "+sortedProbs[k][1]+CR;
+  }
+}
+
  
 </script>
 
 <h2>chord</h2>
-<textarea id = "chordarea">F:maj7 F:maj7 N F:maj7
+<textarea id = "chordarea" onchange="showNextChords()">F:maj7 F:maj7 N F:maj7
 G:7 G:7 G:7 G:7
 E:min7 E:min7 N E:min7
 A:min</textarea><button onclick='playChords(document.getElementById("chordarea").value)' value="play">play</button>
@@ -183,4 +207,6 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 </select>
 <h2>tempo</h2>
 <input type="text" onchange="tempo=60/parseInt(this.value);console.log(tempo);" value="120">
+<h2>nextChord</h2>
+<textarea id="nextChord" style="margin: 0px; height: 85px; width: 169px;"></textarea>
 </body></html>
