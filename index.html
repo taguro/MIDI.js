@@ -168,7 +168,7 @@ function playChords(chords){
 <h2>chord</h2>
 <textarea id = "chordarea">F:maj7 G:7 E:min7 A:min</textarea><button onclick='playChords(document.getElementById("chordarea").value)' value="play">play</button>
 <h2>key</h2>
-<select name="base" size="5" onchange="base=this.value;console.log(base);">
+<select name="base" size="5" onchange="base=parseInt(this.value);console.log(base);">
 <option value="36">36</option>
 <option value="48">48</option>
 <option value="60" selected="">60</option>
