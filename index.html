@@ -159,6 +159,7 @@ function playChords(chords){
     _midi = []
     for(_c in _chords){
         if(_chords[_c].length==0){continue;}
+	if(_chords[_c]=="N"){_midi[_midi.length]=[];continue;}
         _midi[_midi.length]=getMIDI(_chords[_c]);
     }
     playMIDI(_midi);
