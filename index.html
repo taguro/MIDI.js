@@ -34,6 +34,7 @@ var chordname={"maj":"100010010000",
 "hdim7":"100100100010",
 "minmaj7":"100100010001",
 "6":"100010010100",
+"maj6":"100010010100",
 "min6":"100100010100",
 "9":"101010010010",
 "maj9":"101010010001",
@@ -51,15 +52,61 @@ var chordname={"maj":"100010010000",
 "min(#5)":"100100001000",
 "7(b5)":"100010100010"};
  
+var interval={"m2":1,
+"2":2,
+"m3":3,
+"3":4,
+"4":5,
+"b5":6,
+"5":7,
+"#5":8,
+"6":9,
+"m7":10,
+"7":11,
+"8":12,
+"b9":13,
+"9":14,
+"11":17,
+"#11":18,
+"b13":20,
+"13":21
+}
+ 
 function getNote(_chordname){
     j=0;
     note=[];
+    cname=_chordname.split(/[(,),/]/)[0];
+    
+    tensions=_chordname.split(/[(,)]/).slice(1);
+    if(tensions.length!=0){
+    	tensions=tensions.slice(0,tensions.length-1);
+    }
+
+    inversion=_chordname.split("/").slice(1);
+    
+    
     for(i=0;i<12;i++){
-        j = chordname[_chordname].indexOf("1",j);
+    	console.log(cname)
+        j = chordname[cname].indexOf("1",j);
         if(j == -1){break;}
         note[note.length]=j;
         j=j+1;
     }
+
+    for(var tkey in tensions){
+    	tension=tensions[tkey];
+    	note[note.length]=interval[tension];
+    }
+
+    if(inversion.length!=0){
+        newRoot=interval[inversion];
+        for(i=0;i<note.length;i++){
+            if(note[i]<newRoot){
+                note[i]+=12;
+            }
+	        }
+    }
+
     return note;
 };
  
