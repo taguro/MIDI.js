@@ -188,7 +188,7 @@ window.onload = function()
 	location.search.substring(1).split("&").forEach((p)=>{param[p.split("=")[0]]=p.split("=")[1]});
 
 	if ("chord" in param){
-		document.getElementById("chordarea").value=param["chord"];
+		document.getElementById("chordarea").value=decodeURIComponent(param["chord"]);
 	}
 
 	if ("base" in param){
