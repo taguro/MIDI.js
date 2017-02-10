@@ -260,5 +260,5 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 <input id="arpeggio" type="text" style="width:270px;" onchange="arpeggio=this.value;console.log(arpeggio);" value="">
 (0:skip, 1:root, example="1 2 3 2" )
 <h2>Link</h2>
-<input id="uri" type="text" style="width:500px;"><button value="update" onclick="updateURI()">update</button>
+<input id="uri" type="text" style="width:500px;" readonly="readonly" onclick="this.select();"><button value="update" onclick="updateURI()">update</button>
 </body></html>
