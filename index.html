@@ -23,6 +23,7 @@
  
 var base = 60;
 var tempo = 60/120;
+var arpeggio = "";
  
 var key =  ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
  
@@ -136,11 +137,28 @@ function playMIDI(midi){
             // play the note
             MIDI.setVolume(0, 127);
             for(i=0;i<midi.length;i++){
+              if (arpeggio==""){
                 for(j=0;j<midi[i].length;j++){
-                    MIDI.noteOn(0, midi[i][j], velocity, delay);
-                    MIDI.noteOff(0, midi[i][j], delay + tempo);                
+                  MIDI.noteOn(0, midi[i][j], velocity, delay);
+                  MIDI.noteOff(0, midi[i][j], delay + tempo);                
                 }
-                delay = delay +tempo;
+              }else{
+                var arp=arpeggio.split(" ");
+                arp = arp.filter((a)=>{return a!=""});
+
+                t=tempo/arp.length;
+                for(j=0; j<arp.length; j++){
+                  a=arp[j];
+                  for(var noteStr of a){
+                    noteIndex=parseInt(noteStr)-1;
+                    if(typeof midi[i][noteIndex] === "undefined"){continue;}//ない音は鳴らさない
+                    MIDI.noteOn(0, midi[i][noteIndex], velocity, delay+t*j);
+                    MIDI.noteOff(0, midi[i][noteIndex], delay + t*(j+1) );
+                  }
+                }
+              }
+
+              delay = delay +tempo;
             }
         }
     });
@@ -202,6 +220,11 @@ window.onload = function()
 		document.getElementById("tempo").value=param["tempo"];
 		tempo=60/parseInt(param["tempo"]);
 	}
+	
+	if ("arpeggio" in param){
+		document.getElementById("arpeggio").value=decodeURIComponent(param["arpeggio"]);
+		arpeggio=decodeURIComponent(param["arpeggio"]);
+	}
 };
 
 </script>
@@ -223,4 +246,6 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 </select>
 <h2>tempo</h2>
 <input id="tempo" type="text" onchange="tempo=60/parseInt(this.value);console.log(tempo);" value="120">
+<h2>arpeggio (0:skip, 1:root, example="1 2 3 2" )</h2>
+<input id="arpeggio" type="text" style="width:270px;" onchange="arpeggio=this.value;console.log(arpeggio);" value="">
 </body></html>
