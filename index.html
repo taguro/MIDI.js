@@ -210,6 +210,38 @@ function updateURI(){
 	document.getElementById("uri").value=val;
 }
 
+/*
+function randomCreateChord(){
+    var lastChord = document.getElementById("chordarea").value.split(/\r\n|\r|\n| |,/).pop();
+    
+    if(lastChord==""){
+        ind=Math.floor(Math.random()*Object.keys(probabilities).length);
+        key=Object.keys(probabilities)[ind];
+        document.getElementById("chordarea").value += " "+key;
+    }
+    
+    probs=probabilities[lastChord];
+
+    var sum=0;
+    cprobs={};
+    for(var nextChord in probs){
+      sum+=probs[nextChord];
+      cprobs[nextChord]=sum;
+    }
+
+    var p=Math.random()*sum;
+    nChord=lastChord;//とりあえず適当な値で初期化
+    for(var nextChord in probs){
+	    nChord=nextChord;
+        if(p < cprobs[nextChord]){
+           break;
+        }
+    }
+
+    document.getElementById("chordarea").value += " "+nChord;
+}
+*/
+
 window.onload = function()
 {
 	var param={};
