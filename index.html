@@ -121,7 +121,7 @@ function getMIDI(chord){
     for(i=0;i<note.length;i++){
         midi[i]=root+note[i];
     }
-    return midi;
+    return midi.sort();
 };
  
 function playMIDI(midi){
