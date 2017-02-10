@@ -182,7 +182,28 @@ function showNextChords(){
   }
 }
 
- 
+window.onload = function()
+{
+	var param={};
+	location.search.substring(1).split("&").forEach((p)=>{param[p.split("=")[0]]=p.split("=")[1]});
+
+	if ("chord" in param){
+		document.getElementById("chordarea").value=param["chord"];
+	}
+
+	if ("base" in param){
+		var index = document.getElementsByName("base")[0].selectedIndex;
+		document.getElementById("base")[index].text=param["base"];
+		document.getElementById("base")[index].value=param["base"];
+		base=parseInt(param["base"]);
+	}
+
+	if ("tempo" in param){
+		document.getElementById("tempo").value=param["tempo"];
+		tempo=60/parseInt(param["tempo"]);
+	}
+};
+
 </script>
 
 <h2>chord</h2>
@@ -193,7 +214,7 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 <h2>nextChord</h2>
 <textarea id="nextChord" style="margin: 0px; height: 85px; width: 270px;"></textarea>
 <h2>key</h2>
-<select name="base" size="5" onchange="base=parseInt(this.value);console.log(base);">
+<select id="base" name="base" size="5" onchange="base=parseInt(this.value);console.log(base);">
 <option value="36">36</option>
 <option value="48">48</option>
 <option value="60" selected="">60</option>
@@ -201,5 +222,5 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 <option value="84">84</option>
 </select>
 <h2>tempo</h2>
-<input type="text" onchange="tempo=60/parseInt(this.value);console.log(tempo);" value="120">
+<input id="tempo" type="text" onchange="tempo=60/parseInt(this.value);console.log(tempo);" value="120">
 </body></html>
