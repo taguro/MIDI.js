@@ -200,6 +200,16 @@ function showNextChords(){
   }
 }
 
+
+function updateURI(){
+	val=location.hostname+location.pathname+"?";
+	val=val+"chord="+encodeURIComponent(document.getElementById("chordarea").value)+"&";
+	val=val+"base="+encodeURIComponent(document.getElementById("base").value)+"&";
+	val=val+"tempo="+encodeURIComponent(document.getElementById("tempo").value)+"&";
+	val=val+"arpeggio="+encodeURIComponent(document.getElementById("arpeggio").value);
+	document.getElementById("uri").value=val;
+}
+
 window.onload = function()
 {
 	var param={};
@@ -249,4 +259,6 @@ A:min</textarea><button onclick='playChords(document.getElementById("chordarea")
 <h2>arpeggio</h2>
 <input id="arpeggio" type="text" style="width:270px;" onchange="arpeggio=this.value;console.log(arpeggio);" value="">
 (0:skip, 1:root, example="1 2 3 2" )
+<h2>Link</h2>
+<input id="uri" type="text" style="width:500px;"><button value="update" onclick="updateURI()">update</button>
 </body></html>
